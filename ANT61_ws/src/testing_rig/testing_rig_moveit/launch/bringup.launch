@@ -1,0 +1,19 @@
+<launch>
+
+    <include file="$(find testing_rig_moveit)/launch/demo.launch" pass_all_args="true">
+        <arg name="moveit_controller_manager" value="ros_control"/>
+    </include>
+    
+    <include file="$(dirname)/ros_controllers.launch"/>
+
+    <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" respawn="true" output="screen" />
+
+    <arg name="node_start_delay" default="5.0" />
+    <node name="motor_control_node" pkg="dynamixel_sdk_examples" type="sync_read_write_node" respawn="false"
+        output="screen" launch-prefix="bash -c 'sleep $(arg node_start_delay); $0 $@' " />
+
+    <node name="hardware_interface" pkg="testing_rig_control" type="testing_rig_control" respawn="false"
+        output="screen" launch-prefix="bash -c 'sleep $(arg node_start_delay); $0 $@' " />
+
+</launch>
+

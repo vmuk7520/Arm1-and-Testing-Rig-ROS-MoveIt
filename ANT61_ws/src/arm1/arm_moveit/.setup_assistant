@@ -1,0 +1,11 @@
+moveit_setup_assistant_config:
+  URDF:
+    package: arm_description
+    relative_path: urdf/Arm1.xacro
+    xacro_args: ""
+  SRDF:
+    relative_path: config/Arm1.srdf
+  CONFIG:
+    author_name: Victor Mukherjee
+    author_email: vmuk7520@uni.sydney.edu.au
+    generated_timestamp: 1718237082

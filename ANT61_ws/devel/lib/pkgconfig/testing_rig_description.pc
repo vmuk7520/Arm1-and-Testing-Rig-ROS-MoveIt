@@ -1,0 +1,8 @@
+prefix=/home/victor/ANT61/ANT61_ws/devel
+
+Name: testing_rig_description
+Description: Description of testing_rig_description
+Version: 0.0.0
+Cflags: 
+Libs: -L${prefix}/lib 
+Requires: 
