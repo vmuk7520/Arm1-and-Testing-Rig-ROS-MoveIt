@@ -16,7 +16,7 @@
    	* [testing_rig_moveit](#testing_rig_moveit)
 
 ## Introduction: 
-This guide provides a comprehensive overview of using ROS and MoveIt to control ANT61's Arm1 and the associated testing rig. By following these instructions, you'll be able to set up, configure, and operate the system effectively. This guide is intended for robotics who are familiar with ROS and MoveIt.
+This guide provides a comprehensive overview of using ROS and MoveIt to control ANT61's Arm1 and the Testing Rig. By following these instructions, you'll be able to set up, configure, and operate the system effectively. This guide is intended for robotics who are familiar with ROS and MoveIt.
 
 ## Before we start:
 * __Ubuntu Installation__ :
@@ -34,7 +34,7 @@ To start, navigate to the appropriate directory:
 ```bash
 cd Arm1-and-Testing-Rig-ROS/ANT61_ws
 ```
-To compile run:
+The Compile:
 
 ```
 catkin make
@@ -54,7 +54,7 @@ roslaunch arm_description display.launch
 ![Screenshot 2024-08-08 210441](https://github.com/user-attachments/assets/1f21b0d1-daf3-4c70-8b87-295491abbb93)
 
 ### can_interface
-Communication with Arm1 utilizes a CAN bus via your computer's serial port. This package provides two scripts, CAN_rx.py and CAN_tx.py, which are both variations of the [Waveshare usb_can_adapter_v1.py](https://github.com/RajithaRanasinghe/Python-Class-for-Waveshare-USB-CAN-A/blob/main/usb_can_adapter_v1.py) script. These scripts handle CAN message exchange between your software and Arm1's hardware.
+Communication with Arm1 utilizes a CAN bus via your computer's serial port. This package provides two scripts, `CAN_rx.py` and `CAN_tx.py`, which are both variations of the [Waveshare usb_can_adapter_v1.py](https://github.com/RajithaRanasinghe/Python-Class-for-Waveshare-USB-CAN-A/blob/main/usb_can_adapter_v1.py) script. These scripts handle CAN message exchange between your software and Arm1's hardware.
 
 Before operating, connect Arm1 to your device and ensure the `tty_device` parameter in each script's main function matches your serial port. To identify the correct serial port, run the following command in your terminal:
 ```bash
@@ -91,8 +91,8 @@ Before using this software, ensure your Dynamixel motors are properly configured
 
 <img width="424" alt="image" src="https://github.com/user-attachments/assets/24aa3c79-afe7-4b96-a472-df31d37fa73b">
 
-This tutorial will walk you through customizing the motor settings to your specific needs, however the following points must be considered:
-* __Motor IDs__: The 3 motors must have IDs 0, 1, 2 for starting from the most outer motor.
+The tutorial will walk you through customizing the motor settings to your specific needs, however, the following points must be considered:
+* __Motor IDs__: The 3 motors must have IDs: 0, 1, 2. Starting from the outermost motor.
 * __Motor speed__: Each motor should have a PWM limit of approximately 150 to reduce extreme RPM
 * __Motor PID__: Set the P constant to 600, the I constant to 0, and the D constant to 2200
 
