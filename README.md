@@ -47,3 +47,13 @@ This package provides the complete physical description of Arm1, including the e
 roslaunch arm_description display.launch
 ```
 ![Screenshot 2024-08-08 210441](https://github.com/user-attachments/assets/1f21b0d1-daf3-4c70-8b87-295491abbb93)
+
+### can_interface
+Communication with Arm1 utilizes a CAN bus via your computer's serial port. This package provides two scripts, CAN_rx.py and CAN_tx.py, which are both variations of the [Waveshare usb_can_adapter_v1.py](https://github.com/RajithaRanasinghe/Python-Class-for-Waveshare-USB-CAN-A/blob/main/usb_can_adapter_v1.py) script. These scripts handle CAN message exchange between your software and Arm1's hardware.
+
+Before operating,, plug Arm1 into your device and ensure that the `tty_device` in the main function for each script matches your serial port. To find the correct serial device run the following:
+```bash
+ls /dev/ttyUSB*
+```
+
+### arm_control
