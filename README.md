@@ -10,6 +10,10 @@
 	* [arm_moveit](#arm_moveit)
 1. [Testing Rig](#testing-rig)
    	* [Motor Configuration](#motor-configuration)
+   	* [testing_rig_description](#testing_rig_description)
+   	* [dynamixelSDK](#dynamixelsdk)
+   	* [testing_rig_control](#testing_rig_description)
+   	* [testing_rig_moveit](#testing_rig_moveit)
 
 ## Introduction: 
 This guide provides a comprehensive overview of using ROS and MoveIt to control ANT61's Arm1 and the associated testing rig. By following these instructions, you'll be able to set up, configure, and operate the system effectively. This guide is intended for robotics who are familiar with ROS and MoveIt.
@@ -98,6 +102,34 @@ This package provides the complete physical description of Arm1, including the e
 ```bash
 roslaunch testing_rig_description display.launch
 ```
+![Screenshot 2024-08-08 215724](https://github.com/user-attachments/assets/1678362f-3e7b-450d-b176-4dc2c8fdace9)
 
 ### dynamixelSDK
-Sourced from [ROBOTIS Official](https://github.com/ROBOTIS-GIT/DynamixelSDK), this folder contains the packages required for controlling the Dynamixel motors through ROS. Similarly to Arm1, plug the rig into your device, navigate to `dynamixel_sdk_examples/src/sync_read_write_node.cpp` and alter `DEVICE_NAME` to match the name of your serial port.
+Sourced from [ROBOTIS Official](https://github.com/ROBOTIS-GIT/DynamixelSDK), this folder contains the packages required for controlling the Dynamixel motors through ROS. Similarly to Arm1, plug the rig into your device, navigate to `dynamixel_sdk_examples/src/sync_read_write_node.cpp` and alter `DEVICE_NAME` to match the name of your serial port. To identify the correct serial port, run the following command in your terminal:
+```bash
+ls /dev/ttyUSB*
+```
+
+### testing_rig_control
+This package includes two primary components:
+* __Hardware Interface Node__: Bridges the dynamixelSDK nodes with MoveIt.
+* __test_movement.py__: A standalone Python script for verifying MoveIt controller functionality and demonstrating system capabilities.
+
+### testing_rig_moveit
+This MoveIt package was generated using the `moveit_setup_assistant`. It calculates the inverse-kinematics and loads controllers for the rig. To start a simulated environment, run:
+
+```bash
+roslaunch testing_rig_moveit demo_gazebo.launch
+```
+![Screenshot 2024-08-08 213145](https://github.com/user-attachments/assets/ef3631ed-2682-4be6-b490-0e53a68a90f7)
+
+Once connected to physical hardware, execute the following command to launch all necessary nodes and establish a secure connection with the rig:
+
+```bash
+roslaunch testing_rig_moveit bringup.launch
+```
+Once the MoveIt controllers are operational, run `test_movement.py` to verify smooth system operation!
+```bash
+rosrun testing_rig_control test_movement.py
+```
+
