@@ -8,6 +8,8 @@
 	* [can_interface](#can_interface)
 	* [arm_control](#arm_control)
 	* [arm_moveit](#arm_moveit)
+1. [Testing Rig](#testing-rig)
+   	* [Motor Configuration](#motor-configuration)
 
 ## Introduction: 
 This guide provides a comprehensive overview of using ROS and MoveIt to control ANT61's Arm1 and the associated testing rig. By following these instructions, you'll be able to set up, configure, and operate the system effectively. This guide is intended for robotics who are familiar with ROS and MoveIt.
@@ -76,3 +78,14 @@ Once the MoveIt controllers are operational, run `test_movement.py` to verify sm
 ```bash
 rosrun arm_control test_movement.py
 ```
+
+## Testing Rig
+Everything you need to know for the Testing Rig controller.
+
+### Motor Configuration
+Before using this software, ensure your Dynamixel motors are properly configured. We recommend following the steps outlined in this helpful [tutorial](#https://emanual.robotis.com/docs/en/software/dynamixel/dynamixel_sdk/overview/](https://emanual.robotis.com/docs/en/software/dynamixel/dynamixel_wizard2/)) 
+
+This tutorial will walk you through customizing the motor settings to your specific needs, however the following points must be considered:
+* __Motor IDs__: The 3 motors must have IDs 0, 1, 2 for starting from the most outer motor.
+* __Motor speed__: Each motor should have a PWM limit of approximately 150 to reduce extreme RPM
+* __Motor PID__: Set the P constant to 600, the I constant to 0, and the D constant to 2200
