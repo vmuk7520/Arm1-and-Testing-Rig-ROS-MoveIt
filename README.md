@@ -83,9 +83,21 @@ rosrun arm_control test_movement.py
 Everything you need to know for the Testing Rig controller.
 
 ### Motor Configuration
-Before using this software, ensure your Dynamixel motors are properly configured. We recommend following the steps outlined in this helpful [tutorial](#https://emanual.robotis.com/docs/en/software/dynamixel/dynamixel_sdk/overview/](https://emanual.robotis.com/docs/en/software/dynamixel/dynamixel_wizard2/)) 
+Before using this software, ensure your Dynamixel motors are properly configured. We recommend following the steps outlined in this helpful [tutorial].(https://emanual.robotis.com/docs/en/software/dynamixel/dynamixel_sdk/overview/](https://emanual.robotis.com/docs/en/software/dynamixel/dynamixel_wizard2/))
+
+<img width="424" alt="image" src="https://github.com/user-attachments/assets/24aa3c79-afe7-4b96-a472-df31d37fa73b">
 
 This tutorial will walk you through customizing the motor settings to your specific needs, however the following points must be considered:
 * __Motor IDs__: The 3 motors must have IDs 0, 1, 2 for starting from the most outer motor.
 * __Motor speed__: Each motor should have a PWM limit of approximately 150 to reduce extreme RPM
 * __Motor PID__: Set the P constant to 600, the I constant to 0, and the D constant to 2200
+
+### testing_rig_description
+This package provides the complete physical description of Arm1, including the essential URDF and 3D mesh files for accurate visualization. You can run the following command to check if these files are imported correctly.
+
+```bash
+roslaunch testing_rig_description display.launch
+```
+
+### dynamixelSDK
+Sourced from [ROBOTIS Official](https://github.com/ROBOTIS-GIT/DynamixelSDK), this folder contains the packages required for controlling the Dynamixel motors through ROS. Similarly to Arm1, plug the rig into your device, navigate to `dynamixel_sdk_examples/src/sync_read_write_node.cpp` and alter `DEVICE_NAME` to match the name of your serial port.
