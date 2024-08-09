@@ -43,7 +43,7 @@ source devel/setup.bash
 `source devel/setup.bash` adds the *ANT61_ws* path to the current terminal session. Add this to your `.bashrc` file to ensure it is added to any future terminal sessions.
 
 ## Arm1
-Everything you need to know for the Arm1 controller.
+Everything you need to know for the Arm1 ROS controller.
 
 ### arm_description
 This package provides the complete physical description of Arm1, including the essential URDF and 3D mesh files for accurate visualization. You can run the following command to check if these files are imported correctly.
@@ -84,7 +84,7 @@ rosrun arm_control test_movement.py
 ```
 
 ## Testing Rig
-Everything you need to know for the Testing Rig controller.
+Everything you need to know for the Testing Rig ROS controller.
 
 ### Motor Configuration
 Before using this software, ensure your Dynamixel motors are properly configured. We recommend following the steps outlined in this helpful [tutorial](https://emanual.robotis.com/docs/en/software/dynamixel/dynamixel_sdk/overview/](https://emanual.robotis.com/docs/en/software/dynamixel/dynamixel_wizard2/)).
