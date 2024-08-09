@@ -1,6 +1,6 @@
 # Arm1-and-Testing-Rig-ROS
 
-1. [Introduction](#Introduction)
+1. [Introduction](#introduction)
 1. [Before we start](#before-we-start)
 1. [Setup](#setup)
 1. [Week 2](#week-2)
@@ -24,4 +24,26 @@ Follow this [Tutorial](https://ubuntu.com/tutorials/install-ubuntu-desktop#1-ove
 	- Ubuntu 20.04: [ROS Noetic](https://wiki.ros.org/noetic/Installation/Ubuntu)
 
 ## Setup:
-To start 
+To start, navigate to the appropriate directory:
+
+```bash
+cd Arm1-and-Testing-Rig-ROS/ANT61_ws
+```
+To compile run:
+
+```
+catkin make
+source devel/setup.bash
+```
+`source devel/setup.bash` adds the *ANT61_ws* path to the current terminal session. Add this to your `.bashrc` file to ensure it is added to any future terminal sessions.
+
+## Arm1
+Everything you need to know for the Arm1 controller.
+
+### arm_description
+This package provides the complete physical description of Arm1, including the essential URDF and 3D mesh files for accurate visualization. You can run the following command to check if these files are imported correctly.
+
+```bash
+roslaunch arm_description display.launch
+```
+![Screenshot 2024-08-08 210441](https://github.com/user-attachments/assets/1f21b0d1-daf3-4c70-8b87-295491abbb93)
