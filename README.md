@@ -51,9 +51,11 @@ roslaunch arm_description display.launch
 ### can_interface
 Communication with Arm1 utilizes a CAN bus via your computer's serial port. This package provides two scripts, CAN_rx.py and CAN_tx.py, which are both variations of the [Waveshare usb_can_adapter_v1.py](https://github.com/RajithaRanasinghe/Python-Class-for-Waveshare-USB-CAN-A/blob/main/usb_can_adapter_v1.py) script. These scripts handle CAN message exchange between your software and Arm1's hardware.
 
-Before operating,, plug Arm1 into your device and ensure that the `tty_device` in the main function for each script matches your serial port. To find the correct serial device run the following:
+Before operating, connect Arm1 to your device and ensure the `tty_device` parameter in each script's main function matches your serial port. To identify the correct serial port, run the following command in your terminal:
 ```bash
 ls /dev/ttyUSB*
 ```
-
 ### arm_control
+This package includes two primary components:
+* __Hardware Interface Node__: Bridges Arm1's CAN communication with MoveIt.
+* __test_movement.py__: A standalone Python script for verifying MoveIt controller functionality and demonstrating system capabilities.
