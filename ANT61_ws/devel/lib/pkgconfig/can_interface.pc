@@ -1,8 +1,0 @@
-prefix=/home/victor/ANT61/ANT61_ws/devel
-
-Name: can_interface
-Description: Description of can_interface
-Version: 0.0.0
-Cflags: 
-Libs: -L${prefix}/lib -lcan_interface
-Requires: rospy

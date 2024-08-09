@@ -1,8 +1,0 @@
-prefix=/home/victor/ANT61/ANT61_ws/devel
-
-Name: arm_control
-Description: Description of arm_control
-Version: 0.0.0
-Cflags: 
-Libs: -L${prefix}/lib -larm_control
-Requires: controller_manager hardware_interface roscpp std_msgs rospy
