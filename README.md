@@ -87,7 +87,7 @@ rosrun arm_control test_movement.py
 Everything you need to know for the Testing Rig controller.
 
 ### Motor Configuration
-Before using this software, ensure your Dynamixel motors are properly configured. We recommend following the steps outlined in this helpful [tutorial].(https://emanual.robotis.com/docs/en/software/dynamixel/dynamixel_sdk/overview/](https://emanual.robotis.com/docs/en/software/dynamixel/dynamixel_wizard2/))
+Before using this software, ensure your Dynamixel motors are properly configured. We recommend following the steps outlined in this helpful [tutorial](https://emanual.robotis.com/docs/en/software/dynamixel/dynamixel_sdk/overview/](https://emanual.robotis.com/docs/en/software/dynamixel/dynamixel_wizard2/)).
 
 <img width="424" alt="image" src="https://github.com/user-attachments/assets/24aa3c79-afe7-4b96-a472-df31d37fa73b">
 
