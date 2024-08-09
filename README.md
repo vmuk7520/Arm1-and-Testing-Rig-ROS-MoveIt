@@ -3,12 +3,11 @@
 1. [Introduction](#introduction)
 1. [Before we start](#before-we-start)
 1. [Setup](#setup)
-1. [Week 2](#week-2)
-	* [Assignment 2](#assignment-2)
-1. [Week 3](#week-3)
-	* [Assignment 3a](#assignment-3a)
-	* [Assignment 3b](#assignment-3b)
-1. [Week 4](#week-4)
+1. [Arm1](#arm1)
+	* [arm_description](#arm_description)
+	* [can_interface](#can_interface)
+	* [arm_control](#arm_control)
+	* [arm_moveit](#arm_moveit)
 
 ## Introduction: 
 This guide provides a comprehensive overview of using ROS and MoveIt to control ANT61's Arm1 and the associated testing rig. By following these instructions, you'll be able to set up, configure, and operate the system effectively. This guide is intended for robotics who are familiar with ROS and MoveIt.
@@ -59,3 +58,21 @@ ls /dev/ttyUSB*
 This package includes two primary components:
 * __Hardware Interface Node__: Bridges Arm1's CAN communication with MoveIt.
 * __test_movement.py__: A standalone Python script for verifying MoveIt controller functionality and demonstrating system capabilities.
+
+### arm_moveit
+This MoveIt package was generated using the `moveit_setup_assistant`. It calculates the inverse-kinematics and loads controllers for the arm. To start a simulated environment, run:
+
+```bash
+roslaunch arm_moveit demo_gazebo.launch
+```
+![Screenshot 2024-08-08 213145](https://github.com/user-attachments/assets/ef3631ed-2682-4be6-b490-0e53a68a90f7)
+
+Once connected to physical hardware, execute the following command to launch all necessary nodes and establish a secure connection with the arm:
+
+```bash
+roslaunch arm_moveit bringup.launch
+```
+Once the MoveIt controllers are operational, run `test_movement.py` to verify smooth system operation!
+```bash
+rosrun arm_control test_movement.py
+```
