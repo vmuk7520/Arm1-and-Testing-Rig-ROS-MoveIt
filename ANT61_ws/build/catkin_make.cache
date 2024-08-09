@@ -1,0 +1,2 @@
+arm1/arm_control:arm1/arm_description:arm1/arm_moveit:arm1/can_interface:testing_rig/dynamixelSDK/ros/dynamixel_sdk:testing_rig/dynamixelSDK/ros/dynamixel_sdk_examples:testing_rig/testing_rig_control:testing_rig/testing_rig_description:testing_rig/testing_rig_moveit
+-DCATKIN_DEVEL_PREFIX=/home/victor/Arm1-and-Testing-Rig-ROS/ANT61_ws/devel -DCMAKE_INSTALL_PREFIX=/home/victor/Arm1-and-Testing-Rig-ROS/ANT61_ws/install -G Unix Makefiles

@@ -1,0 +1,8 @@
+prefix=/home/victor/Arm1-and-Testing-Rig-ROS/ANT61_ws/install
+
+Name: can_interface
+Description: Description of can_interface
+Version: 0.0.0
+Cflags: 
+Libs: -L${prefix}/lib -lcan_interface
+Requires: rospy

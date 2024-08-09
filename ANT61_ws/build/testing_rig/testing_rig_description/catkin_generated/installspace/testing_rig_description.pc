@@ -1,0 +1,8 @@
+prefix=/home/victor/Arm1-and-Testing-Rig-ROS/ANT61_ws/install
+
+Name: testing_rig_description
+Description: Description of testing_rig_description
+Version: 0.0.0
+Cflags: 
+Libs: -L${prefix}/lib 
+Requires: 
