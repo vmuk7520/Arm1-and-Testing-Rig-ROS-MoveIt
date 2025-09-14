@@ -1,135 +1,218 @@
-# Arm1-and-Testing-Rig-ROS
 
-1. [Introduction](#introduction)
-1. [Before we start](#before-we-start)
-1. [Setup](#setup)
-1. [Arm1](#arm1)
-	* [arm_description](#arm_description)
-	* [can_interface](#can_interface)
-	* [arm_control](#arm_control)
-	* [arm_moveit](#arm_moveit)
-1. [Testing Rig](#testing-rig)
-   	* [Motor Configuration](#motor-configuration)
-   	* [testing_rig_description](#testing_rig_description)
-   	* [dynamixelSDK](#dynamixelsdk)
-   	* [testing_rig_control](#testing_rig_description)
-   	* [testing_rig_moveit](#testing_rig_moveit)
+# Arm1 and Testing Rig ROS Workspace
 
-## Introduction: 
-This guide provides a comprehensive overview of using ROS and MoveIt to control ANT61's Arm1 and the Testing Rig. By following these instructions, you'll be able to set up, configure, and operate the system effectively. This guide is intended for robotics who are familiar with ROS and MoveIt.
+## Table of Contents
+1. [Project Overview](#project-overview)
+2. [Workspace Structure](#workspace-structure)
+3. [Before You Start](#before-you-start)
+4. [Setup & Build Instructions](#setup--build-instructions)
+5. [Arm1 System](#arm1-system)
+	- [arm_description](#arm_description)
+	- [can_interface](#can_interface)
+	- [arm_control](#arm_control)
+	- [arm_moveit](#arm_moveit)
+6. [Testing Rig System](#testing-rig-system)
+	- [Motor Configuration](#motor-configuration)
+	- [testing_rig_description](#testing_rig_description)
+	- [dynamixel_sdk](#dynamixel_sdk)
+	- [testing_rig_control](#testing_rig_control)
+	- [testing_rig_moveit](#testing_rig_moveit)
+7. [Troubleshooting & Tips](#troubleshooting--tips)
 
-## Before we start:
-* __Ubuntu Installation__ :
-For using ROS framework Ubuntu is necessary, if you already have a Linux system you can skip to [setup](#setup). It's Preferable that you install Ubuntu 20.04)
-Follow this [Tutorial](https://ubuntu.com/tutorials/install-ubuntu-desktop#1-overview) to install Ubuntu onto your device. 
+---
 
-<span style="color:red">[WARNING], Do at your own risk! We will not be responsible if you lose your data. __Follow instructions carefully and make backups before you start!__</span>
+## Project Overview
 
-* __ROS Installation/setup__: For this guide we will be using the ROS noetic distro
-	- Ubuntu 20.04: [ROS Noetic](https://wiki.ros.org/noetic/Installation/Ubuntu)
+This workspace provides a complete ROS Noetic and MoveIt-based solution for controlling the ANT61 Arm1 and a Dynamixel-powered Testing Rig. It includes:
+- Physical and kinematic descriptions (URDF, meshes)
+- Hardware interface nodes for CAN and Dynamixel
+- MoveIt integration for motion planning and control
+- Example scripts for testing and demonstration
 
-## Setup:
-To start, navigate to the appropriate directory:
+This guide is intended for robotics engineers familiar with ROS and MoveIt.
 
-```bash
-cd Arm1-and-Testing-Rig-ROS/ANT61_ws
+---
+
+## Workspace Structure
+
 ```
-The Compile:
-
+ANT61_ws/
+├── build/           # Catkin build artifacts
+├── devel/           # Catkin development environment
+├── logs/            # Build and runtime logs
+├── src/             # Source code for all packages
+│   ├── arm1/        # Custom code for Arm1
+│   ├── testing_rig/ # Custom code for Testing Rig
+│   ├── ...          # Other packages (see below)
+├── .catkin_workspace
+├── .catkin_tools/
+└── ...
 ```
-catkin make
-source devel/setup.bash
-```
-`source devel/setup.bash` adds the *ANT61_ws* path to the current terminal session. Add this to your `.bashrc` file to ensure it is added to any future terminal sessions.
 
-## Arm1
-Everything you need to know for the Arm1 ROS controller.
+### Main Packages in `src/`
+
+| Package                | Description |
+|------------------------|-------------|
+| `arm_description`      | URDF & meshes for Arm1 |
+| `can_interface`        | CAN bus communication scripts |
+| `arm_control`          | Hardware interface node & test script |
+| `arm_moveit`           | MoveIt config for Arm1 |
+| `testing_rig_description` | URDF & meshes for Testing Rig |
+| `dynamixel_sdk`        | Dynamixel motor SDK (from Robotis) |
+| `dynamixel_sdk_examples` | Example nodes for Dynamixel SDK |
+| `testing_rig_control`  | Hardware interface node & test script |
+| `testing_rig_moveit`   | MoveIt config for Testing Rig |
+
+---
+
+## Before You Start
+
+### 1. Ubuntu Installation
+ROS Noetic requires Ubuntu 20.04. If you already have a compatible Linux system, skip to [Setup](#setup--build-instructions).
+
+**[WARNING]**: Proceed at your own risk! Back up your data before making system changes.
+
+- [Ubuntu Installation Tutorial](https://ubuntu.com/tutorials/install-ubuntu-desktop#1-overview)
+
+### 2. ROS Noetic Installation
+- [ROS Noetic Installation Guide](https://wiki.ros.org/noetic/Installation/Ubuntu)
+
+---
+
+## Setup & Build Instructions
+
+1. **Clone the repository** (if not already done):
+	```bash
+	git clone <repo_url>
+	cd Arm1-and-Testing-Rig-ROS-MoveIt/ANT61_ws
+	```
+2. **Build the workspace:**
+	```bash
+	catkin_make
+	source devel/setup.bash
+	```
+	Add `source /path/to/ANT61_ws/devel/setup.bash` to your `~/.bashrc` for convenience.
+
+---
+
+## Arm1 System
 
 ### arm_description
-This package provides the complete physical description of Arm1, including the essential URDF and 3D mesh files for accurate visualization. You can run the following command to check if these files are imported correctly.
-
+Contains the URDF and mesh files for Arm1. For visualization, run:
 ```bash
 roslaunch arm_description display.launch
 ```
-![Screenshot 2024-08-08 210441](https://github.com/user-attachments/assets/1f21b0d1-daf3-4c70-8b87-295491abbb93)
+![Arm1 Visualization](https://github.com/user-attachments/assets/1f21b0d1-daf3-4c70-8b87-295491abbb93)
 
 ### can_interface
-Communication with Arm1 utilizes a CAN bus via your computer's serial port. This package provides two scripts, `CAN_rx.py` and `CAN_tx.py`, which are both variations of the [Waveshare usb_can_adapter_v1.py](https://github.com/RajithaRanasinghe/Python-Class-for-Waveshare-USB-CAN-A/blob/main/usb_can_adapter_v1.py) script. These scripts handle CAN message exchange between your software and Arm1's hardware.
+Provides CAN bus communication scripts (`CAN_rx.py`, `CAN_tx.py`). These are based on [Waveshare usb_can_adapter_v1.py](https://github.com/RajithaRanasinghe/Python-Class-for-Waveshare-USB-CAN-A/blob/main/usb_can_adapter_v1.py).
 
-Before operating, connect Arm1 to your device and ensure the `tty_device` parameter in each script's main function matches your serial port. To identify the correct serial port, run the following command in your terminal:
-```bash
-ls /dev/ttyUSB*
-```
+**Setup:**
+- Connect Arm1 to your device.
+- Edit the `tty_device` parameter in each script to match your serial port.
+- Find your serial port:
+	```bash
+	ls /dev/ttyUSB*
+	```
+
 ### arm_control
-This package includes two primary components:
-* __Hardware Interface Node__: Bridges Arm1's CAN communication with MoveIt.
-* __test_movement.py__: A standalone Python script for verifying MoveIt controller functionality and demonstrating system capabilities.
+Contains:
+- **Hardware Interface Node**: Bridges CAN communication with MoveIt.
+- **test_movement.py**: Standalone script to verify MoveIt controller and demonstrate system capabilities.
 
 ### arm_moveit
-This MoveIt package was generated using the `moveit_setup_assistant`. It calculates the inverse-kinematics and loads controllers for the arm. To start a simulated environment, run:
+MoveIt configuration for Arm1 (generated via `moveit_setup_assistant`).
 
+**Simulated environment:**
 ```bash
 roslaunch arm_moveit demo_gazebo.launch
 ```
-![Screenshot 2024-08-08 213145](https://github.com/user-attachments/assets/ef3631ed-2682-4be6-b490-0e53a68a90f7)
+![Arm1 MoveIt Demo](https://github.com/user-attachments/assets/ef3631ed-2682-4be6-b490-0e53a68a90f7)
 
-Once connected to physical hardware, execute the following command to launch all necessary nodes and establish a secure connection with the arm:
-
+**Physical hardware:**
 ```bash
 roslaunch arm_moveit bringup.launch
 ```
-Once the MoveIt controllers are operational, run `test_movement.py` to verify smooth system operation!
+Once controllers are running, verify with:
 ```bash
 rosrun arm_control test_movement.py
 ```
 
-## Testing Rig
-Everything you need to know for the Testing Rig ROS controller.
+---
+
+## Testing Rig System
 
 ### Motor Configuration
-Before using this software, ensure your Dynamixel motors are properly configured. We recommend following the steps outlined in this helpful [tutorial](https://emanual.robotis.com/docs/en/software/dynamixel/dynamixel_sdk/overview/](https://emanual.robotis.com/docs/en/software/dynamixel/dynamixel_wizard2/)).
+Before using the software, configure your Dynamixel motors. Follow the [Dynamixel Wizard2 Tutorial](https://emanual.robotis.com/docs/en/software/dynamixel/dynamixel_sdk/overview/](https://emanual.robotis.com/docs/en/software/dynamixel/dynamixel_wizard2/)).
 
-<img width="424" alt="image" src="https://github.com/user-attachments/assets/24aa3c79-afe7-4b96-a472-df31d37fa73b">
+<img width="424" alt="Dynamixel Wizard2" src="https://github.com/user-attachments/assets/24aa3c79-afe7-4b96-a472-df31d37fa73b">
 
-The tutorial will walk you through customizing the motor settings to your specific needs, however, the following points must be considered:
-* __Motor IDs__: The 3 motors must have IDs: 0, 1, 2. Starting from the outermost motor.
-* __Motor speed__: Each motor should have a PWM limit of approximately 150 to reduce extreme RPM
-* __Motor PID__: Set the P constant to 600, the I constant to 0, and the D constant to 2200
+**Required settings:**
+- **Motor IDs**: 0, 1, 2 (outermost to innermost)
+- **PWM limit**: ~150
+- **PID**: P=600, I=0, D=2200
 
 ### testing_rig_description
-This package provides the complete physical description of Arm1, including the essential URDF and 3D mesh files for accurate visualization. You can run the following command to check if these files are imported correctly.
-
+Contains URDF and mesh files for the Testing Rig. For visualization, run:
 ```bash
 roslaunch testing_rig_description display.launch
 ```
-![Screenshot 2024-08-08 215724](https://github.com/user-attachments/assets/1678362f-3e7b-450d-b176-4dc2c8fdace9)
+![Testing Rig Visualization](https://github.com/user-attachments/assets/1678362f-3e7b-450d-b176-4dc2c8fdace9)
 
-### dynamixelSDK
-Sourced from [ROBOTIS Official](https://github.com/ROBOTIS-GIT/DynamixelSDK), this folder contains the packages required for controlling the Dynamixel motors through ROS. Similarly to Arm1, plug the rig into your device, navigate to `dynamixel_sdk_examples/src/sync_read_write_node.cpp` and alter `DEVICE_NAME` to match the name of your serial port. To identify the correct serial port, run the following command in your terminal:
-```bash
-ls /dev/ttyUSB*
-```
+### dynamixel_sdk
+Official [ROBOTIS DynamixelSDK](https://github.com/ROBOTIS-GIT/DynamixelSDK) for motor control.
+
+**Setup:**
+- Plug in the rig.
+- Edit `DEVICE_NAME` in `dynamixel_sdk_examples/src/sync_read_write_node.cpp` to match your serial port.
+- Find your serial port:
+	```bash
+	ls /dev/ttyUSB*
+	```
 
 ### testing_rig_control
-This package includes two primary components:
-* __Hardware Interface Node__: Bridges the dynamixelSDK nodes with MoveIt.
-* __test_movement.py__: A standalone Python script for verifying MoveIt controller functionality and demonstrating system capabilities.
+Contains:
+- **Hardware Interface Node**: Bridges DynamixelSDK nodes with MoveIt.
+- **test_movement.py**: Standalone script to verify MoveIt controller and demonstrate system capabilities.
 
 ### testing_rig_moveit
-This MoveIt package was generated using the `moveit_setup_assistant`. It calculates the inverse-kinematics and loads controllers for the rig. To start a simulated environment, run:
+MoveIt configuration for the Testing Rig.
 
+**Simulated environment:**
 ```bash
 roslaunch testing_rig_moveit demo_gazebo.launch
 ```
-![Screenshot 2024-08-08 213145](https://github.com/user-attachments/assets/ef3631ed-2682-4be6-b490-0e53a68a90f7)
+![Testing Rig MoveIt Demo](https://github.com/user-attachments/assets/ef3631ed-2682-4be6-b490-0e53a68a90f7)
 
-Once connected to physical hardware, execute the following command to launch all necessary nodes and establish a secure connection with the rig:
-
+**Physical hardware:**
 ```bash
 roslaunch testing_rig_moveit bringup.launch
 ```
-Once the MoveIt controllers are operational, run `test_movement.py` to verify smooth system operation!
+Once controllers are running, verify with:
 ```bash
 rosrun testing_rig_control test_movement.py
 ```
+
+---
+
+## Troubleshooting & Tips
+
+- **Source your workspace**: Always run `source devel/setup.bash` in each new terminal.
+- **Serial port issues**: Use `ls /dev/ttyUSB*` to find your device. Check permissions if you can't access it.
+- **Gazebo/MoveIt errors**: Ensure all dependencies are installed (`rosdep install --from-paths src --ignore-src -r -y`).
+- **Rebuild after changes**: Run `catkin_make` after modifying source code or configuration files.
+- **Check logs**: See `logs/` for build/runtime errors.
+- **Documentation**: Refer to package-level README files (if present) for more details.
+
+---
+
+## Contributing
+
+Pull requests and issues are welcome! Please follow ROS and MoveIt best practices.
+
+---
+
+## License
+
+See individual package folders for license information.
 
